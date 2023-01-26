@@ -100,3 +100,14 @@ beforeEach(inject(function(_$controller_, MockService){
     });
 }); // end of describe
 ```
+***
+#### _Summary_
+* Angular provides ngMock module to help with unit testing.
+* To test a controller you need:
+    * Load module controller is in with `angular.mock.module('name');`.
+    * Use `$controller` to instantiate the controller you want to test.
+    * Use controller instance to invoke methods, access props, etc.
+* Do most of the setup in beforeEach. At least `module('name')` loading, but maybe more.
+* `$provide` service can be injected only into `module('name')`.
+* For other services, use angular.mock.inject method.
+***

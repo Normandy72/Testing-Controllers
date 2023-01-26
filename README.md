@@ -1,4 +1,5 @@
 # Testing AngularJS Controllers
+## - 1 -
 ### beforeEach Setup
 ```
 describe("tests", function(){
@@ -61,4 +62,41 @@ beforeEach(inject(function(_$controller_){
 
 <!-- include spec files here... -->
 <script src="spec/MyCtrl.spec.js"></script>
+```
+## - 2 -
+### beforeEach Setup
+```
+beforeEach(function(){
+    module(function($provide){
+        $provide.service('MockService', function(){
+            var service = this;
+            service.aMethod = function(){
+                return 'fake-value';
+            };
+        });
+    });
+
+    module('MyApp');
+});
+...
+```
+```
+...
+var $controller;
+var myCtrl;
+
+beforeEach(inject(function(_$controller_, MockService){
+    $controller = _$controller_;
+
+    myCtrl = $controller('MyCtrl', {MyService: MockService});
+}));
+```
+### Test Method
+```
+    ...
+    it("should update init value on item add", function(){
+        myCtrl.addItem();
+        experct(myCtrl.value).toBe("fake-value");
+    });
+}); // end of describe
 ```
